@@ -1,4 +1,3 @@
-```markdown
 # MAC Address Changer
 
 This script allows you to change the MAC address of a network interface on a Linux system. You can specify a new MAC address manually or allow the script to generate a random one for you.
