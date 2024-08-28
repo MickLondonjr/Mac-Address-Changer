@@ -1,35 +1,79 @@
-# Mac Address Changer
+```markdown
+# MAC Address Changer
 
-## Description
-This is a simple Python script that allows you to change the MAC address of a network interface on your system. 
+This script allows you to change the MAC address of a network interface on a Linux system. You can specify a new MAC address manually or allow the script to generate a random one for you.
 
-## Usage
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/MickLondonjr/Mac-Address-Changer.git
-   ```
-2. **Navigate to the project directory:**
-   ```bash
-   cd Mac-Address-Changer
-   ```
-3. **Run the script:**
-   ```bash
-   sudo python3 mac_changer.py
-   ```
+## Features
+
+- Lists all available network interfaces with their current MAC addresses.
+- Allows the user to specify a new MAC address or generates a random one if none is provided.
+- Changes the MAC address of the specified interface.
+- Validates that the MAC address was successfully changed.
 
 ## Requirements
+
 - Python 3.x
-- `subprocess` module (standard library)
+- `ifconfig` command (available on most Linux distributions)
 
-## Disclaimer
-Changing your MAC address might have unintended consequences depending on your network setup. Use this script responsibly.
+## Usage
 
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+1. **Clone the Repository**
 
-## Contributions
-Feel free to fork this repository and submit pull requests for improvements.
+   ```bash
+   git clone https://github.com/MickLondonjr/Mac-Address-Changer.git
+   cd Mac-Address-Changer
+   ```
 
+2. **Run the Script**
+
+   You can run the script with or without arguments:
+
+   - **To list interfaces and change the MAC address of a specific interface with a manually specified MAC:**
+
+     ```bash
+     sudo ./mac-changer.py -i eth0 -m 00:11:22:33:44:55
+     ```
+
+   - **To list interfaces and change the MAC address of a specific interface with a randomly generated MAC:**
+
+     ```bash
+     sudo ./mac-changer.py -i eth0
+     ```
+
+   - **To simply list the available network interfaces and their MAC addresses:**
+
+     Run the script without any arguments, and it will display the available interfaces.
+
+## Example Output
+
+```bash
+$ sudo ./mac-changer.py
+
+[+] Available network interfaces and their MAC addresses:
+    Interface: eth0, MAC: 02:22:cd:6c:e6:72
+    Interface: wlan0, MAC: 00:11:22:33:44:55
+
+Usage: mac-changer.py [options]
+
+mac-changer.py: error: [-] Please specify an interface, use --help for more info.
 ```
 
-This README covers the basics: what the project does, how to use it, and any other essential information. You can expand it as your project grows, adding sections like "Features," "Known Issues," or "Future Plans" if needed.
+```bash
+$ sudo ./mac-changer.py -i eth0
+[+] No MAC address provided. Generated random MAC: 02:4b:7c:2d:3e:8f
+Current MAC = 02:22:cd:6c:e6:72
+[+] Changing MAC address for eth0 to 02:4b:7c:2d:3e:8f
+[+] MAC address was successfully changed to 02:4b:7c:2d:3e:8f
+```
+
+## Notes
+
+- Ensure you have the necessary permissions to change the MAC address of network interfaces (usually requires `sudo`).
+- The script was tested on a Linux environment. It may not work as expected on non-Linux systems.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+```
+
+This `README.md` provides an overview of the project, instructions on how to use it, and an example of the output. It should be clear and helpful for users who want to use your MAC address changer script.
