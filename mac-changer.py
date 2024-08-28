@@ -8,16 +8,22 @@ import random
 
 def list_interfaces():
     # Get the output of ifconfig to list interfaces and MAC addresses
-    ifconfig_result = subprocess.check_output(["ifconfig"]).decode('utf-8')
-    # Find all interfaces and their corresponding MAC addresses
-    interfaces = re.findall(r'(\w+):\s+flags=.*?ether ((?:\w{2}:){5}\w{2})', ifconfig_result)
+    try:
+        ifconfig_result = subprocess.check_output(["ifconfig"]).decode('utf-8')
+        # Debug print to see the raw ifconfig result
+        print("[DEBUG] ifconfig output:\n", ifconfig_result)
 
-    if interfaces:
-        print("[+] Available network interfaces and their MAC addresses:")
-        for interface, mac in interfaces:
-            print(f"    Interface: {interface}, MAC: {mac}")
-    else:
-        print("[-] No network interfaces found.")
+        # Find all interfaces and their corresponding MAC addresses
+        interfaces = re.findall(r'(\w+):\s+flags=.*?ether ((?:\w{2}:){5}\w{2})', ifconfig_result)
+
+        if interfaces:
+            print("[+] Available network interfaces and their MAC addresses:")
+            for interface, mac in interfaces:
+                print(f"    Interface: {interface}, MAC: {mac}")
+        else:
+            print("[-] No network interfaces found.")
+    except subprocess.CalledProcessError as e:
+        print(f"[-] Error occurred while running ifconfig: {e}")
 
 
 def get_arguments():
